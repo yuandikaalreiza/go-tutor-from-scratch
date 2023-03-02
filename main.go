@@ -2,17 +2,20 @@ package main
 
 import (
 	"fmt"
-	"strings"
+	"net/http"
 )
 
 func main() {
-	var secret interface{}
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "halo")
+	})
 
-	secret = 2
-	var number = secret.(int) * 10
-	fmt.Println(secret, "multiplied by 10 is :", number)
+	http.HandleFunc("/index", index)
 
-	secret = []string{"apple", "manggo", "banana"}
-	var gruits = strings.Join(secret.([]string), ", ")
-	fmt.Println(gruits, "is my favorite fruits")
+	fmt.Println("starting web server at http://localhost:8080/")
+	http.ListenAndServe(":8080", nil)
+}
+
+func index(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "apa kabar")
 }
