@@ -2,32 +2,24 @@ package main
 
 import (
 	"fmt"
-	"html/template"
-	"net/http"
+	"net/url"
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		var data = map[string]string{
-			"Name":    "john wick",
-			"Message": "have a nice day",
-		}
+	var urlString = "http://kalipare.com:80/hello?name=john wick&age=27"
+	var u, e = url.Parse(urlString)
+	if e != nil {
+		fmt.Println(e.Error())
+		return
+	}
 
-		var t, err = template.ParseFiles("template.html")
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
+	fmt.Printf("url: %v\n", urlString)
 
-		t.Execute(w, data)
-	})
+	fmt.Printf("protocol: %v\n", u.Scheme)
+	fmt.Printf("host: %v\n", u.Host)
+	fmt.Printf("path: %v\n", u.Path)
 
-	http.HandleFunc("/index", index)
-
-	fmt.Println("starting web server at http://localhost:8080/")
-	http.ListenAndServe(":8080", nil)
-}
-
-func index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "apa kabar")
+	var name = u.Query()["name"][0]
+	var age = u.Query()["age"][0]
+	fmt.Printf("name: %v, age: %v", name, age)
 }
