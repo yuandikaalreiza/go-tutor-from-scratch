@@ -18,7 +18,7 @@ var data = []student{
 	student{"B002", "bond", 23},
 }
 
-func user(w http.ResponseWriter, r *http.Request) {
+func users(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	if r.Method == "GET" {
