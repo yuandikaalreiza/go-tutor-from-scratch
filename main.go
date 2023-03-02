@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -62,4 +63,12 @@ func user(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.Error(w, "", http.StatusBadRequest)
+}
+
+func main() {
+	http.HandleFunc("/users", users)
+	http.HandleFunc("/user", user)
+
+	fmt.Println("starting web server at http://localhost:8080/")
+	http.ListenAndServe(":8080", nil)
 }
