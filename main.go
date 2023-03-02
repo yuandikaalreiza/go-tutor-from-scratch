@@ -6,12 +6,24 @@ import (
 )
 
 func main() {
-	var jsonString = `{"Name": "john wick", "Age": 27}`
-	var jsonData = []byte(jsonString)
+	var jsonString = `[
+		{"Name": "john wick", "Age": 27},
+		{"Name": "ethan hunt", "Age": 32}
+	]`
 
-	var data1 map[string]any
-	json.Unmarshal(jsonData, &data1)
+	var data []User
 
-	fmt.Println("user :", data1["Name"])
-	fmt.Println("age  :", data1["Age"])
+	var err = json.Unmarshal([]byte(jsonString), &data)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+	fmt.Println("user 1:", data[0].FullName)
+	fmt.Println("user 2:", data[1].FullName)
+}
+
+type User struct {
+	FullName string `json:"Name"`
+	Age      int
 }
