@@ -65,30 +65,6 @@ func user(w http.ResponseWriter, r *http.Request) {
 	http.Error(w, "", http.StatusBadRequest)
 }
 
-func fetchUsers() ([]student, error) {
-	var err error
-	var client = &http.Client{}
-	var data []student
-
-	request, err := http.NewRequest("POST", baseURL+"/users", nil)
-	if err != nil {
-		return nil, err
-	}
-
-	response, err := client.Do(request)
-	if err != nil {
-		return nil, err
-	}
-	defer response.Body.Close()
-
-	err = json.NewDecoder(response.Body).Decode(&data)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 func main() {
 	http.HandleFunc("/users", users)
 	http.HandleFunc("/user", user)
