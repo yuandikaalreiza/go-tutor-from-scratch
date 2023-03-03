@@ -71,13 +71,11 @@ func fetchUser(ID string) (student, error) {
 }
 
 func main() {
-	var users, err = fetchUsers()
+	var user1, err = fetchUser("E001")
 	if err != nil {
-		fmt.Println("Erro njer!", err.Error())
+		fmt.Println("Error!", err.Error())
 		return
 	}
 
-	for _, each := range users {
-		fmt.Printf("ID: %s\t Name: %s\t Grade: %d\n", each.ID, each.Name, each.Grade)
-	}
+	fmt.Printf("ID: %s\t Name: %s\t Grade: %d\n", user1.ID, user1.Name, user1.Grade)
 }
