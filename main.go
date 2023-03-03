@@ -6,12 +6,10 @@ import (
 	"net/http"
 )
 
-var baseURL = "http:/localhost:8080"
-
 type student struct {
 	ID    string
-	name  string
-	grade int
+	Name  string
+	Grade int
 }
 
 var data = []student{
