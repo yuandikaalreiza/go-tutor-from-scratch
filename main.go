@@ -1,4 +1,4 @@
-package fetchUsers
+package main
 
 import (
 	"encoding/json"
